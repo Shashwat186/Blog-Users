@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="/fragments/header :: header"/>
+
+<div class="container admin-editor">
+    <div class="panel panel-default editor-panel">
+        <div class="panel-heading">
+            <h2>Create a new post</h2>
+        </div>
+        <div class="panel-body">
+            <form autocomplete="off" action="#" th:action="@{/newPost}"
+                  th:object="${post}" method="post" class="form-horizontal"
+                  role="form">
+
+                <div class="form-group">
+                    <label class="control-label">Title</label>
+                    <label th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{title}" placeholder="Title"
+                           class="form-control input-lg"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Content</label>
+                    <label th:if="${#fields.hasErrors('body')}" th:errors="*{body}"
+                           class="alert alert-danger"></label>
+                    <textarea th:field="*{body}" placeholder="Write your story here..."
+                              class="form-control input-lg post-body-input"></textarea>
+                </div>
+
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="form-group editor-actions">
+                    <input type="submit" class="btn btn-primary" value="Publish"/>
+                    <a class="btn btn-default" th:href="@{/home}">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>

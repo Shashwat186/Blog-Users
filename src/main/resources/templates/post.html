@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <div th:replace="/fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="/fragments/header :: header"/>
+
+<div class="container">
+
+    <!--Post-->
+    <div class="jumbotron">
+
+        <h1 th:text="${post.title}">Title</h1>
+        <div th:text="'Created: ' + ${#dates.format(post.createDate, 'dd-MMM-yyyy')} + ' by '">Created by</div>
+        <div><a th:text="${post.user.username}" th:href="@{'/blog/' + ${post.user.username}}">User</a></div>
+        <h3 th:text="${post.body}">Body</h3>
+
+        <!--Only show these buttons if the user is the owner of post-->
+        <div sec:authorize="isAuthenticated()" th:if="${username}">
+            <div class="row">
+                <a th:href="@{'/editPost/{id}'(id=${post.id})}" class="col-md-2">
+                    <button type="button" class="btn btn-primary btn-block" th:text="Edit">Edit</button>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <h2>Comments:</h2>
+    <div class="well" th:each="comment : ${post.comments}">
+        <h3 th:text="${comment.body}">Body</h3>
+        <div th:text="'Created: ' + ${#dates.format(comment.createDate, 'dd-MMM-yyyy')} + ' by '">
+            Created by
+        </div>
+        <div><a th:text="${comment.user.username}" th:href="@{'/blog/' + ${comment.user.username}}">User</a></div>
+    </div>
+</div>
+<!-- /.container -->
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>

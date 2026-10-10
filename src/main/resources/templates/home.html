@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="/fragments/header :: header"/>
+
+<div class="container">
+
+    <section class="hero">
+        <div>
+            <h1>Welcome — latest stories</h1>
+            <p class="subtitle">Browse and read posts below. No login required.</p>
+        </div>
+    </section>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Latest posts</h2>
+        </div>
+        <div class="panel-body">
+            <div th:replace="/fragments/posts :: posts"/>
+        </div>
+    </div>
+
+    <div th:replace="/fragments/pagination :: pagination(URLparameter='/home')"/>
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
